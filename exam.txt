@@ -1,0 +1,72 @@
+<?php
+declare(strict_types=1);
+
+/**
+ * Génère un tableau de puissances n x n
+ * @param int $n La dimension du tableau (par défaut 5)
+ * @return string Le code HTML du tableau
+ */
+function myst(int $n = 5): string {
+    // Initialisation de la table avec son titre
+    $str = "<table style=\"border-collapse: collapse;\">\n\t<caption>mystery</caption>\n";
+    
+    // Construction de l'en-tête (thead)
+    $str .= "\t<thead>\n\t\t<tr>\n\t\t\t<th></th>\n";
+    for ($c = 1; $c <= $n; $c++) {
+        $str .= "\t\t\t<th scope=\"col\">$c</th>\n";
+    }
+    $str .= "\t\t</tr>\n\t</thead>\n";
+
+    // Construction du corps (tbody)
+    $str .= "\t<tbody>\n";
+    for ($l = 1; $l <= $n; $l++) {
+        $str .= "\t\t<tr>\n\t\t\t<th scope=\"row\">$l</th>\n";
+        
+        for ($c = 1; $c <= $n; $c++) {
+            // Calcul de la puissance l^c
+            $valeur = pow($l, $c);
+            
+            // Si on est sur la diagonale (ligne === colonne), on ajoute la classe "d"
+            if ($l === $c) {
+                $str .= "\t\t\t<td class=\"d\">$valeur</td>\n";
+            } else {
+                $str .= "\t\t\t<td>$valeur</td>\n";
+            }
+        }
+        $str .= "\t\t</tr>\n";
+    }
+    $str .= "\t</tbody>\n</table>\n";
+
+    return $str;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>mystery</title>
+    <style>
+        /* Styles extraits de l'illustration 6 */
+        td, th {
+            border: 1px solid black; /* Correction de 'thta' en '1px' */
+            min-width: 50px;         /* Ajusté pour la lisibilité */
+            text-align: center;
+            padding: 5px;
+        }
+        /* Classe pour la diagonale grise */
+        .d {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Continuous Evaluation</h1>
+    
+    <?php
+    // Appel de la fonction (utilise n=5 par défaut)
+    echo myst();
+    ?>
+    
+</body>
+</html>
